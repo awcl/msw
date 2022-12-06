@@ -4,7 +4,7 @@ import Board from './Board';
 const Home = () => {
   return (
     <div className="Home">
-      Minesweeper
+      <span className="GameName" id="GameName">Minesweeper</span>
       <Board/>
     </div>
   )

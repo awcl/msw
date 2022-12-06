@@ -5,33 +5,60 @@ import { useState, useEffect } from 'react';
 const Board = () => {
   const GRID = 10;
   const MINES = 10;
-  let defaultValue = { clicked: false, hot: false, text: '' };
+  let defaultValue = { clicked: 0};
   const [gameData, setGameData] = useState(new Array(GRID));
+  const [mineCoord, setMineCoord] = useState([]);
 
   for (let i = 0; i < GRID; i++) { // fill y of x
     gameData[i] = new Array(GRID).fill(defaultValue);
   }
 
-  console.log(gameData);
+  useEffect (() => {
+    if (GRID * GRID >= MINES) {
+      var coordArr = [];
+      do {
+        let rx = Math.floor(Math.random() * MINES);
+        let ry = Math.floor(Math.random() * MINES);
+        let temp = [rx, ry];
+        if (!coordArr.includes(temp)) {coordArr.push(temp);}
+      } while (coordArr.length !== MINES);
+      console.log('setting mines at: ', coordArr)
+      setMineCoord(coordArr);
+    } else console.log('Too Many Mines');
+    console.log('mine coord: ', mineCoord);
+  },[])
 
   const handleClick = (e) => {
-    e.target.innerHTML = 'X';
-    console.log('Coord: ', e.target.getAttribute('x'),'x',e.target.getAttribute('y'))
+    let x = e.target.getAttribute('x');
+    let y = e.target.getAttribute('y');
+    let clicked = e.target.getAttribute('clicked');
+    e.target.disabled = true;
+    let temp = [parseInt(x), parseInt(y)];
+    console.log('type ::: ',typeof temp[0], '/', typeof mineCoord[0][0])
+
+    console.log('temp: ', temp, '\n', 'mindCoord: ', mineCoord)
+    if (mineCoord.indexOf(temp) !== -1) {
+      disableField();
+      e.target.innerHTML = '🧨';
+      document.getElementById('GameName').innerHTML = `You've Lost 🙁`
+    } else {
+      e.target.innerHTML = '🙂';
+    }
   }
 
+  const disableField = () => {
+    for(var x = 0; x < gameData.length; x++) {
+      for(var y = 0; y < gameData[x].length; y++) {
+        document.getElementById(`${x}-${y}`).disabled = true;
+      }
+    }
+  }
 
   return (
     <>
-    <div className="Board">
-      {/* <button className="GameButton" key="[0][0]" onClick={(e)=>{console.log(e.target.innerHTML = "e")}}>&nbsp;</button>
-      <button className="GameButton" key="[1][0]" onClick={(e)=>{console.log(e.target.innerHTML = "e")}}>&nbsp;</button><br/>
-      <button className="GameButton" key="[0][1]" onClick={(e)=>{console.log(e.target.innerHTML = "e")}}>&nbsp;</button>
-      <button className="GameButton" key="[1][1]" onClick={(e)=>{console.log(e.target.innerHTML = "e")}}>&nbsp;</button>
-
-      {if (xidx !== GRID && yidx === (GRID - 1)) {<br/>}}
-      */}
+    <div className="Board" id="Board">
       {gameData.map((xval, xidx) => {
-        return gameData[xidx].map((yval, yidx) => (<button className="GameButton" onClick={(e)=> handleClick(e)} x={xidx} y={yidx}>&nbsp;</button>)
+        return gameData[xidx].map((yval, yidx) => (<button id={`${xidx}-${yidx}`} x={xidx} y={yidx} key={`${xidx}-${yidx}`} className="GameButton" onClick={(e)=> handleClick(e)} clicked={gameData[xidx][yidx].clicked}>&nbsp;</button>)
         )
       })}
     </div>
