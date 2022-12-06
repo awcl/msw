@@ -1,0 +1,46 @@
+body {
+  text-align: center;
+  background-color: #2f3135;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(30px + 2vmin);
+  color: white;
+}
+
+
+
+.Board {
+  font-size: 0px;
+  /* display: inline-block; */
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5%;
+
+}
+
+.GameButton {
+  display: inline-block;
+  border: 2px solid #000000;
+  background-color: #4CAF50;
+  width: 10%;
+  height: calc(width);
+  font-size: calc(20px + 2vmin);
+  color: #B350AF;
+  padding: -1px;
+  margin: -1px;
+}
+
+.ResetButton {
+  display: inline-block;
+  border: 2px solid #000000;
+  background-color: #4CAF50;
+  width: calc(80px + 6vmin);
+  height: calc(30px + 2vmin);
+  font-size: calc(20px + 2vmin);
+  color: #B350AF;
+}
+
+.GameButton:hover, .ResetButton:hover {
+  background-color: #AC6C23;
+  cursor: grab;
+}
