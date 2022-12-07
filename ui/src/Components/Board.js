@@ -38,7 +38,7 @@ const Board = () => {
         e.target.innerHTML = '🧨';
         document.getElementById('GameName').innerHTML = `You've Lost 🙁`;
         for (var r = 0; r < gameData.length; r++) { // disable field
-          for (var s = 0; y < gameData[r].length; s++) {
+          for (var s = 0; s < gameData[r].length; s++) {
             document.getElementById(`${r}-${s}`).disabled = true;
           }
         }
