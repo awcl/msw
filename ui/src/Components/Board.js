@@ -37,9 +37,9 @@ const Board = () => {
         console.log('match');
         e.target.innerHTML = '🧨';
         document.getElementById('GameName').innerHTML = `You've Lost 🙁`;
-        for (var x = 0; x < gameData.length; x++) { // disable field
-          for (var y = 0; y < gameData[x].length; y++) {
-            document.getElementById(`${x}-${y}`).disabled = true;
+        for (var r = 0; r < gameData.length; r++) { // disable field
+          for (var s = 0; y < gameData[r].length; s++) {
+            document.getElementById(`${r}-${s}`).disabled = true;
           }
         }
         return;
