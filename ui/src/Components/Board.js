@@ -31,29 +31,21 @@ const Board = () => {
   const handleClick = (e) => {
     let x = e.target.getAttribute('x');
     let y = e.target.getAttribute('y');
-    let clicked = e.target.getAttribute('clicked');
     e.target.disabled = true;
-    // console.log('type ::: ',typeof temp[0], '/', typeof mineCoord[0][0])
-
-    // console.log('temp: ', temp, '\n', 'mineCoord: ', mineCoord)
-
     for (var i = 0; i < mineCoord.length; i++) {
-      if (mineCoord[i][0] === +x && mineCoord[i][1] === +y) {
+      if (mineCoord[i][0] === +x && mineCoord[i][1] === +y) { // check if it's mined
         console.log('match');
         e.target.innerHTML = '🧨';
         document.getElementById('GameName').innerHTML = `You've Lost 🙁`;
-        disableField();
+        for (var x = 0; x < gameData.length; x++) { // disable field
+          for (var y = 0; y < gameData[x].length; y++) {
+            document.getElementById(`${x}-${y}`).disabled = true;
+          }
+        }
         return;
       }
+      //TODO Adjacency
       e.target.innerHTML = '🙂';
-      }
-    }
-
-    const disableField = () => {
-      for (var x = 0; x < gameData.length; x++) {
-        for (var y = 0; y < gameData[x].length; y++) {
-          document.getElementById(`${x}-${y}`).disabled = true;
-        }
       }
     }
 
